@@ -1,7 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Authors>David Tabatadze</Authors>
+    <Description>MongoDB.Driver wrapper for .net core</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Copyright (c) 2019 David Tabatadze</Copyright>
+    <PackageLicenseUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper</RepositoryUrl>
+    <RepositoryType>C#</RepositoryType>
+    <PackageTags>.net core mongo mongodb driver wrapper david tabatadze optio optio.ai</PackageTags>
+    <PackageReleaseNotes>MongoTableEntity
+MongoTable
+MongoContext</PackageReleaseNotes>
+    <NeutralLanguage>ka-GE</NeutralLanguage>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreKit.Extensions" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
 
 </Project>
