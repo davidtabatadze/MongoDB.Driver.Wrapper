@@ -62,7 +62,7 @@ namespace MongoDB.Driver.Wrapper
                     // Creating database reference
                     DatabaseObject = client.GetDatabase(Configuration.Database);
                 }
-                // Returnins as singleton
+                // Returning as singleton
                 return DatabaseObject;
             }
         }
