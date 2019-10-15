@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using CoreKit.Extensions.Collection;
+using CoreKit.Extension.Collection;
 
 namespace MongoDB.Driver.Wrapper
 {
