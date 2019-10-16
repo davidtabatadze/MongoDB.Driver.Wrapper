@@ -46,9 +46,10 @@ namespace MongoDB.Driver.Wrapper.Test
             tablelong.SaveEntityLong(objectlong);
             tablelong.DeleteEntityAsync(objectlong.Code).Wait();
 
-            tablelong.SaveEntityLongAsync(objectlong).Wait();           
+            tablelong.SaveEntityLongAsync(objectlong).Wait();
 
-            datalong = tablelong.Load(Builders<TestEntityLong>.Filter.Where(i => i.Name == objectlong.Name));
+            //datalong = tablelong.Load(Builders<TestEntityLong>.Filter.Where(i => i.Name == objectlong.Name));
+            datalong = tablelong.Load(tablelong.Filter.Where(i => i.Name == objectlong.Name));
             datalong = new List<TestEntityLong> { };
             datalong = new List<TestEntityLong> { tablelong.Get(Builders<TestEntityLong>.Filter.Where(i => i.Name == objectlong.Name)) };
             datalong = new List<TestEntityLong> { };

@@ -51,11 +51,11 @@ namespace MongoDB.Driver.Wrapper
         /// </summary>
         public IMongoCollection<T> Content { get; set; }
 
-        ///// <summary>
-        ///// Table filter.
-        ///// MongoDB.Driver FilterDefinitionBuilder standard functionality.
-        ///// </summary>
-        //public FilterDefinitionBuilder<T> Filter = new FilterDefinitionBuilder<T>();
+        /// <summary>
+        /// Table filter.
+        /// MongoDB.Driver FilterDefinitionBuilder standard functionality.
+        /// </summary>
+        public FilterDefinitionBuilder<T> Filter = new FilterDefinitionBuilder<T>();
 
         /// <summary>
         /// Getting fixed filter
