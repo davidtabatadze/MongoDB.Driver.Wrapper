@@ -21,7 +21,7 @@ MongoContext</PackageReleaseNotes>
 
   <ItemGroup>
     <PackageReference Include="CoreKit.Extension" Version="1.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.9.2" />
   </ItemGroup>
 
