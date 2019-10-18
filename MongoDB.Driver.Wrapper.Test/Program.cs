@@ -12,8 +12,10 @@ namespace MongoDB.Driver.Wrapper.Test
         {
             public override string Table => "t1";
             public string Name { get; set; }
-            [BsonSerializer(typeof(MongoSerializerDateTimeOriginal))]
+            [BsonSerializer(typeof(MongoSerializerDateTimeLocal))]
             public DateTime Date { get; set; }
+            [BsonSerializer(typeof(MongoSerializerDateTimeLocalNullable))]
+            public DateTime? Date1 { get; set; }
         }
 
         class TestEntityInt : MongoTableEntity<string>
@@ -34,7 +36,7 @@ namespace MongoDB.Driver.Wrapper.Test
             });
 
             var tablelong = context.Table<TestEntityLong>();
-            var objectlong = new TestEntityLong { Name = "ola", Date = new DateTime(2019, 01, 01) };
+            var objectlong = new TestEntityLong { Name = "ola", Date = new DateTime(2019, 1, 1) };
             var datalong = new List<TestEntityLong> { };
 
             tablelong.SaveEntityLong(objectlong);
@@ -43,6 +45,7 @@ namespace MongoDB.Driver.Wrapper.Test
             tablelong.SaveEntityLongAsync(objectlong).Wait();
 
             objectlong.Name = "hey";
+            objectlong.Date1 = DateTime.Now;
             tablelong.SaveEntityLong(objectlong);
             tablelong.DeleteEntityAsync(objectlong.Code).Wait();
 

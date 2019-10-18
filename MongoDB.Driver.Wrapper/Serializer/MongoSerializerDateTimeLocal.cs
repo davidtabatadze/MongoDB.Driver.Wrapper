@@ -9,7 +9,7 @@ namespace MongoDB.Driver.Wrapper.Serializer
     /// Represents bson transformer of date.
     /// Turning Utc to Unspecified original.
     /// </summary>
-    public class MongoSerializerDateTimeOriginal : DateTimeSerializer
+    public class MongoSerializerDateTimeLocal : DateTimeSerializer
     {
 
         /// <summary>
