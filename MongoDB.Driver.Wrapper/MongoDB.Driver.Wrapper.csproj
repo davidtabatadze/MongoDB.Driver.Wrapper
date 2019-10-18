@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
+    <Version>2.0.2</Version>
     <Company>David Tabatadze</Company>
     <Product>David Tabatadze</Product>
     <Description>.net core MongoDB.Driver wrapper</Description>
@@ -15,7 +15,8 @@
     <PackageTags>.net core mongo mongodb driver wrapper david tabatadze optio optioai optio.ai</PackageTags>
     <PackageReleaseNotes>MongoTableEntity
 MongoTable
-MongoContext</PackageReleaseNotes>
+MongoContext
+MongoSerializerDateTimeLocal</PackageReleaseNotes>
     <NeutralLanguage>ka-GE</NeutralLanguage>
   </PropertyGroup>
 
