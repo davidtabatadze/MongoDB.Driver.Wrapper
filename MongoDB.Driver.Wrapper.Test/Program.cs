@@ -27,6 +27,9 @@ namespace MongoDB.Driver.Wrapper.Test
 
         static void Main(string[] args)
         {
+
+            // ??? სტრიქონ-გასაღებებზე აუცილებელია ToLower() ???
+
             Console.WriteLine("wrapper test...");
 
             var context = new MongoContext(new MongoConfiguration

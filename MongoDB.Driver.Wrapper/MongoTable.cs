@@ -75,13 +75,37 @@ namespace MongoDB.Driver.Wrapper
         }
 
         /// <summary>
+        /// Getting fixed kit
+        /// </summary>
+        /// <param name="kit">Raw kit</param>
+        /// <param name="fixForGet">Whether fix for Get method or not</param>
+        /// <returns>Fixed kit</returns>
+        private MongoFilterKit FixFilterKit(MongoFilterKit kit = null, bool fixForGet = true)
+        {
+            // If kit is not defined
+            if (kit == null)
+            {
+                // We are fixing it by default value
+                kit = new MongoFilterKit { };
+            }
+            // If kit is meant fot Get method
+            if (fixForGet)
+            {
+                // We are redusing record possible count to 1
+                kit.Limit = 1;
+            }
+            // returning fixed kit
+            return kit;
+        }
+
+        /// <summary>
         /// Get data count
         /// </summary>
         /// <param name="filter">data filter</param>
         /// <returns>data count</returns>
         public long Count(FilterDefinition<T> filter = null)
         {
-            // Finxing filter
+            // Fixing filter
             filter = FixFilter(filter);
             // Returning data count
             return Content.CountDocuments(filter);
@@ -94,7 +118,7 @@ namespace MongoDB.Driver.Wrapper
         /// <returns>data count</returns>
         public async Task<long> CountAsync(FilterDefinition<T> filter = null)
         {
-            // Finxing filter
+            // Fixing filter
             filter = FixFilter(filter);
             // Returning data count
             return await Content.CountDocumentsAsync(filter);
@@ -108,7 +132,7 @@ namespace MongoDB.Driver.Wrapper
         /// <returns>filtered data</returns>
         public List<T> Load(FilterDefinition<T> filter = null, MongoFilterKit kit = null)
         {
-            // Finxing filter
+            // Fixing filter
             filter = FixFilter(filter);
             // Defining options according kit
             var options = kit == null ? new FindOptions<T> { } : kit.ToFindOptions<T>();
@@ -139,7 +163,7 @@ namespace MongoDB.Driver.Wrapper
         /// <returns>filtered data</returns>
         public async Task<List<T>> LoadAsync(FilterDefinition<T> filter = null, MongoFilterKit kit = null)
         {
-            // Finxing filter
+            // Fixing filter
             filter = FixFilter(filter);
             // Defining options according kit
             var options = kit == null ? new FindOptions<T> { } : kit.ToFindOptions<T>();
@@ -167,10 +191,14 @@ namespace MongoDB.Driver.Wrapper
         /// </summary>
         /// <param name="filter">Record filter</param>
         /// <returns>Filtered item</returns>
-        public T Get(FilterDefinition<T> filter)
+        public T Get(FilterDefinition<T> filter = null, MongoFilterKit kit = null)
         {
+            // Fixing filter
+            filter = FixFilter(filter);
+            // Fixing kit
+            kit = FixFilterKit(kit);
             // Loading data with only one record kit
-            var data = Load(filter, new MongoFilterKit { Skip = 0, Limit = 1 });
+            var data = Load(filter, kit);
             // Returning that single record
             return data.FirstOrDefault();
         }
@@ -180,10 +208,14 @@ namespace MongoDB.Driver.Wrapper
         /// </summary>
         /// <param name="filter">Record filter</param>
         /// <returns>Filtered item</returns>
-        public async Task<T> GetAsync(FilterDefinition<T> filter)
+        public async Task<T> GetAsync(FilterDefinition<T> filter = null, MongoFilterKit kit = null)
         {
+            // Fixing filter
+            filter = FixFilter(filter);
+            // Fixing kit
+            kit = FixFilterKit(kit);
             // Loading data with only one record kit
-            var data = await LoadAsync(filter, new MongoFilterKit { Skip = 0, Limit = 1 });
+            var data = await LoadAsync(filter, kit);
             // Returning that single record
             return data.FirstOrDefault();
         }
@@ -252,7 +284,7 @@ namespace MongoDB.Driver.Wrapper
         /// <param name="filter">Data filter</param>
         public void Delete(FilterDefinition<T> filter = null)
         {
-            // Finxing filter
+            // Fixing filter
             filter = FixFilter(filter);
             // Delete data by filter
             Content.DeleteMany(filter);
@@ -265,7 +297,7 @@ namespace MongoDB.Driver.Wrapper
         /// <returns>Nothing</returns>
         public async Task DeleteAsync(FilterDefinition<T> filter = null)
         {
-            // Finxing filter
+            // Fixing filter
             filter = FixFilter(filter);
             // Delete data by filter
             await Content.DeleteManyAsync(filter);
