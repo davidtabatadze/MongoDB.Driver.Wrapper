@@ -167,6 +167,8 @@ namespace MongoDB.Driver.Wrapper
             filter = FixFilter(filter);
             // Defining options according kit
             var options = kit == null ? new FindOptions<T> { } : kit.ToFindOptions<T>();
+            // Setting no cursor time in any case
+            options.NoCursorTimeout = true;
             // In case if limit is not requested
             if (options.Limit == 0)
             {
