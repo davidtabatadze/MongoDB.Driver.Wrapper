@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0.1</Version>
+    <Version>4.0.1</Version>
     <Company>David Tabatadze</Company>
     <Product>David Tabatadze</Product>
     <Description>.net core MongoDB.Driver wrapper</Description>
@@ -16,16 +16,17 @@
     <PackageReleaseNotes>MongoTableEntity
 MongoTable
 MongoContext
-MongoSerializerDateTimeLocal</PackageReleaseNotes>
+MongoSerializer
+Mongo Transactions</PackageReleaseNotes>
     <NeutralLanguage>ka-GE</NeutralLanguage>
-    <AssemblyVersion>3.0.1.0</AssemblyVersion>
-    <FileVersion>3.0.1.0</FileVersion>
+    <AssemblyVersion>4.0.1.0</AssemblyVersion>
+    <FileVersion>4.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CoreKit.Extension" Version="1.0.5" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.10.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.0" />
   </ItemGroup>
 
 </Project>

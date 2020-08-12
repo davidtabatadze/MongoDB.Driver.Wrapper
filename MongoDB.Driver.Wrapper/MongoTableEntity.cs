@@ -1,8 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using CoreKit.Extension.Collection;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Driver.Wrapper
 {
@@ -11,7 +10,7 @@ namespace MongoDB.Driver.Wrapper
     /// Represents entity of mongo table <see cref="MongoTable{T}"/>
     /// </summary>
     /// <typeparam name="T">Entity key type</typeparam>
-    public class MongoTableEntity<T> : IMongoEntity
+    public class MongoTableEntity<T> : IMongoEntity, IMongoEntityDeletable
     {
 
         /// <summary>
@@ -36,13 +35,13 @@ namespace MongoDB.Driver.Wrapper
                 );
             }
             // Generating entity key
-            GenerateID(Code);
+            GenerateCode(Code);
         }
 
         /// <summary>
         /// Entity key generation
         /// </summary>
-        internal void GenerateID(T value)
+        internal void GenerateCode(T value)
         {
             // Initial granting 
             CodeValue = value;
@@ -56,7 +55,7 @@ namespace MongoDB.Driver.Wrapper
             if (typeof(T) == typeof(string) && Convert.ToString(value).IsEmpty())
             {
                 // Generating string key from current date
-                CodeValue = (T)(object)ObjectId.GenerateNewId(DateTime.Now).ToString();
+                CodeValue = (T)(object)DateTime.Now.ToString("yyMMddHHmmssfffffff");//ObjectId.GenerateNewId(DateTime.Now).ToString();
             }
         }
 
@@ -89,7 +88,7 @@ namespace MongoDB.Driver.Wrapper
             set
             {
                 // Generating entity key
-                GenerateID(value);
+                GenerateCode(value);
             }
         }
 

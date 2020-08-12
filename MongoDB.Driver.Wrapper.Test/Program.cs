@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver.Wrapper.Serializer;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace MongoDB.Driver.Wrapper.Test
@@ -27,6 +28,26 @@ namespace MongoDB.Driver.Wrapper.Test
 
         static void Main(string[] args)
         {
+
+            var longs = new List<long> { };
+            DateTime dtdt = new DateTime(1988, 11, 11);
+            for (int i = 0; i < 1000; i++)
+            {
+
+                //var ddd = ((DateTime.Now.ToUniversalTime() - dtdt).TotalMilliseconds + 0.5);
+
+                //longs.Add(Convert.ToInt64(ddd));
+
+
+                string ticks = DateTime.Now.Ticks.ToString();
+                //ticks = ticks.Substring(ticks.Length - 14);
+                longs.Add(Convert.ToInt64(ticks));
+
+                //longs.Add(Convert.ToInt64(DateTime.Now.ToString("yyMMddHHmmssff")));
+            }
+            longs = longs.Distinct().ToList();
+
+            var x = 100;
 
             // ??? სტრიქონ-გასაღებებზე აუცილებელია ToLower() ???
 

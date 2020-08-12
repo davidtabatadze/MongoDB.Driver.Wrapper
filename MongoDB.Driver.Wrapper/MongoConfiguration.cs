@@ -20,6 +20,11 @@ namespace MongoDB.Driver.Wrapper
         /// </summary>
         public string Database { get; set; }
 
+        /// <summary>
+        /// Prevents transaction support if true
+        /// </summary>
+        public bool DisableTransactions { get; set; }
+
     }
 
 }
