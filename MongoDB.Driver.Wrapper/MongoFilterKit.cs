@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using CoreKit.Extension.String;
 
 namespace MongoDB.Driver.Wrapper
 {
@@ -73,7 +74,7 @@ namespace MongoDB.Driver.Wrapper
         {
             get
             {
-                return OrderDirection.ToLower() == "desc" ? -1 : 1;
+                return OrderDirection.TrimFullAndLower() == "desc" ? -1 : 1;
             }
         }
 
