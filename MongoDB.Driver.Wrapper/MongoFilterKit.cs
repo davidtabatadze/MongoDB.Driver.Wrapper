@@ -11,29 +11,21 @@ namespace MongoDB.Driver.Wrapper
     {
 
         /// <summary>
-        /// Constructor
+        /// Represents kit order direction enum
         /// </summary>
-        public MongoFilterKit()
+        public static class EnumOrderDirection
         {
-            // By default order filed will be key and order direction will be descending
-            OrderBy = "_id";
-            OrderDirection = "desc";
-        }
 
-        /// <summary>
-        /// Converting to MongoDB.Driver native FindOptions
-        /// </summary>
-        /// <typeparam name="T">Mongo table entity <see cref="MongoTableEntity{T}"/></typeparam>
-        /// <returns>MongoDB.Driver native FindOptions</returns>
-        public FindOptions<T> ToFindOptions<T>()
-        {
-            // Generating and returning FindOptions
-            return new FindOptions<T>
-            {
-                Skip = Skip,
-                Limit = Limit,
-                Sort = new BsonDocument(OrderByToCapital, OrderDirectionToNumber)
-            };
+            /// <summary>
+            /// Ascending 
+            /// </summary>
+            public const string ASC = "asc";
+
+            /// <summary>
+            /// Descending
+            /// </summary>
+            public const string Desc = "desc";
+
         }
 
         /// <summary>
@@ -52,30 +44,33 @@ namespace MongoDB.Driver.Wrapper
         public string OrderBy { get; set; }
 
         /// <summary>
-        /// Capitalized order field for actual use in mongo queries
-        /// </summary>
-        internal string OrderByToCapital
-        {
-            get
-            {
-                return OrderBy[0].ToString().ToUpper() + OrderBy.Remove(0, 1);
-            }
-        }
-
-        /// <summary>
         /// Order direction
         /// </summary>
         public string OrderDirection { get; set; }
 
         /// <summary>
-        /// Number representation of order direction for actual use in mongo queries
+        /// Converting to MongoDB.Driver native FindOptions
         /// </summary>
-        internal int OrderDirectionToNumber
+        /// <typeparam name="T">Type of data</typeparam>
+        /// <param name="dromedary">Use dromedary pascal case</param>
+        /// <returns>MongoDB.Driver native FindOptions</returns>
+        internal FindOptions<T> ToFindOptions<T>(bool dromedary = false)
         {
-            get
+            // Fixing params
+            OrderDirection = OrderDirection.IsEmpty() ? EnumOrderDirection.ASC : OrderDirection;
+            OrderBy = OrderBy.IsEmpty() || OrderBy.ToLower().Contains("key") ? "_id" : OrderBy;
+            // Generating and returning FindOptions
+            return new FindOptions<T>
             {
-                return OrderDirection.TrimFullAndLower() == "desc" ? -1 : 1;
-            }
+                Skip = Skip,
+                // In case if limit is not requested, will become null
+                // So, all possible records will be materialized
+                Limit = Limit == 0 ? (int?)null : Limit,
+                Sort = new BsonDocument(
+                    dromedary ? OrderBy.ToDromedary() : OrderBy.ToPascal(),
+                    OrderDirection.TrimFullAndLower() == EnumOrderDirection.Desc ? -1 : 1
+                )
+            };
         }
 
     }

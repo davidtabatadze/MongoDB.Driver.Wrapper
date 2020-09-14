@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.0.3</Version>
+    <Version>5.0.0</Version>
     <Company>David Tabatadze</Company>
     <Product>David Tabatadze</Product>
     <Description>.net core MongoDB.Driver wrapper</Description>
@@ -13,20 +13,21 @@
     <RepositoryUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper</RepositoryUrl>
     <RepositoryType>C#</RepositoryType>
     <PackageTags>.net core mongo mongodb driver wrapper david tabatadze optio optioai optio.ai</PackageTags>
-    <PackageReleaseNotes>MongoTableEntity
-MongoTable
-MongoContext
-MongoSerializer
-Mongo Transactions</PackageReleaseNotes>
+    <PackageReleaseNotes>Mongo Context
+Mongo Entity
+Mongo CRUD
+Mongo Transactions
+</PackageReleaseNotes>
     <NeutralLanguage>ka-GE</NeutralLanguage>
-    <AssemblyVersion>4.0.3.0</AssemblyVersion>
-    <FileVersion>4.0.3.0</FileVersion>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <FileVersion>5.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoreKit.Extension" Version="2.0.0" />
+    <PackageReference Include="CoreKit.Extension" Version="2.0.5" />
+    <PackageReference Include="CoreKit.Sync" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
   </ItemGroup>
 
 </Project>

@@ -4,16 +4,11 @@ namespace MongoDB.Driver.Wrapper
 {
 
     /// <summary>
-    /// Represents basic description of mongo table entity <see cref="MongoTableEntity{T}"/>
+    /// Represents basic description of mongo table entity.
     /// </summary>
-    public interface IMongoEntity
+    /// <typeparam name="T">Type of key</typeparam>
+    public interface IMongoEntity<T> : IMongoEntityKeyable<T>, IMongoEntityDeletable
     {
-
-        /// <summary>
-        /// Name of the table to which entity belongs
-        /// </summary>
-        string Table { get; }
-
     }
 
 }

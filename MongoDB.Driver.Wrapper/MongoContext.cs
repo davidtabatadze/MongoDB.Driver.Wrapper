@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using CoreKit.Extension.String;
+using CoreKit.Extension.Collection;
 using Microsoft.Extensions.Options;
 
 namespace MongoDB.Driver.Wrapper
@@ -7,7 +10,6 @@ namespace MongoDB.Driver.Wrapper
 
     /// <summary>
     /// Represents wrapper of IMongoDatabase.
-    /// Contains mongo typebased table manager <see cref="MongoTable{T}"/>
     /// </summary>
     public class MongoContext : IDisposable
     {
@@ -24,7 +26,8 @@ namespace MongoDB.Driver.Wrapper
         /// Constructor
         /// </summary>
         /// <param name="configuration">Configuration <see cref="MongoConfiguration"/></param>
-        public MongoContext(IOptions<MongoConfiguration> configuration) : this(configuration.Value)
+        /// <param name="entities">Entity mappings: class type to mongo table connection</param>
+        public MongoContext(IOptions<MongoConfiguration> configuration, Dictionary<Type, string> entities) : this(configuration.Value, entities)
         {
         }
 
@@ -32,31 +35,28 @@ namespace MongoDB.Driver.Wrapper
         /// Constructor
         /// </summary>
         /// <param name="configuration">Configuration <see cref="MongoConfiguration"/></param>
-        public MongoContext(MongoConfiguration configuration)
+        /// <param name="entities">Entity mappings: class type to mongo table connection</param>
+        public MongoContext(MongoConfiguration configuration, Dictionary<Type, string> entities)
         {
             // ...
             Configuration = configuration;
+            Entities = entities;
         }
 
         /// <summary>
         /// Configuration object
         /// </summary>
-        private MongoConfiguration Configuration { get; set; }
+        internal protected MongoConfiguration Configuration { get; set; }
+
+        /// <summary>
+        /// Class type to mongo table connection dictionary
+        /// </summary>
+        internal protected Dictionary<Type, string> Entities { get; set; }
 
         /// <summary>
         /// Client object
         /// </summary>
-        private MongoClient Client { get; set; }
-
-        /// <summary>
-        /// Session object
-        /// </summary>
-        private IClientSessionHandle Session { get; set; }
-
-        /// <summary>
-        /// Counter for sequenced transactions
-        /// </summary>
-        private int TransactionCounter { get; set; }
+        internal protected MongoClient Client { get; set; }
 
         /// <summary>
         /// Database object
@@ -64,9 +64,9 @@ namespace MongoDB.Driver.Wrapper
         private IMongoDatabase DatabaseObject { get; set; }
 
         /// <summary>
-        /// Gets configured database
+        /// Configured database
         /// </summary>
-        public IMongoDatabase Database
+        internal protected IMongoDatabase Database
         {
             get
             {
@@ -92,103 +92,58 @@ namespace MongoDB.Driver.Wrapper
         }
 
         /// <summary>
-        /// Begins session transaction
+        /// Session object
         /// </summary>
-        public void BeginTransaction()
-        {
-            // Begin...
-            BeginTransactionAsync().Wait();
-        }
+        internal protected IClientSessionHandle Session { get; set; }
 
         /// <summary>
-        /// Begins session transaction asynchronously
+        /// Counter for sequenced transactions
         /// </summary>
-        /// <returns>Empty</returns>
-        public async Task BeginTransactionAsync()
+        internal protected int TransactionCounter { get; set; }
+
+        /// <summary>
+        /// Gets collection name
+        /// </summary>
+        /// <param name="type">Collection type</param>
+        /// <returns>Collection name</returns>
+        private string CollectionName(Type type)
         {
-            // Only if transactions are permitted
-            if (Configuration.DisableTransactions)
+            // Seeking mongo collection
+            Entities.TryGetValue(type, out string name);
+            // Validating table name
+            if (name.IsEmpty())
             {
-                // Only if session is empty
-                if (Session == null)
-                {
-                    // We do create it and then begin the transaction
-                    Session = await Client.StartSessionAsync();
-                    Session.StartTransaction();
-                }
-                // Every time, when transaction is requested, we increase counter
-                TransactionCounter++;
+                // Throwing undefined table exception
+                throw new NotImplementedException(
+                    string.Format("Destination mongo table is not defined for entity '{0}'.", type.Name)
+                );
             }
+            // Returning collection name
+            return name;
         }
 
         /// <summary>
-        /// Commits session transaction
+        /// Gets typebased collection
         /// </summary>
-        public void CommitTransaction()
+        /// <typeparam name="E">Entity type</typeparam>
+        /// <param name="type">Collection type</param>
+        /// <returns>Mongo collection</returns>
+        internal protected IMongoCollection<E> Collection<E>(Type type)
         {
-            // Commit...
-            CommitTransactionAsync().Wait();
+            // Seeking name and returning collection
+            var name = CollectionName(type);
+            return Database.GetCollection<E>(name);
         }
 
         /// <summary>
-        /// Commits session transaction asynchronously
+        /// Gets typebased collection
         /// </summary>
-        /// <returns>Empty</returns>
-        public async Task CommitTransactionAsync()
+        /// <typeparam name="E">Entity type</typeparam>
+        /// <returns>Mongo collection</returns>
+        public IMongoCollection<E> Collection<E>()
         {
-            // Only if transactions are permitted
-            if (!Configuration.DisableTransactions)
-            {
-                // Every time, when transaction commit is requested, we decrease counter
-                TransactionCounter--;
-                // Only if we dont have any sequenced transaction
-                if (TransactionCounter == 0)
-                {
-                    // We do commit existing session
-                    await Session.CommitTransactionAsync();
-                    Session.Dispose();
-                    Session = null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Rollbacks session transaction
-        /// </summary>
-        public void RollbackTransaction()
-        {
-            // Rollback...
-            RollbackTransactionAsync().Wait();
-        }
-
-        /// <summary>
-        /// Rollbacks session transaction asynchronously
-        /// </summary>
-        /// <returns>Empty</returns>
-        public async Task RollbackTransactionAsync()
-        {
-            // Only if transactions are permitted
-            if (!Configuration.DisableTransactions)
-            {
-                // Only if session exists
-                if (Session != null)
-                {
-                    // We do abort it
-                    await Session.AbortTransactionAsync();
-                    Session.Dispose();
-                    Session = null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets database typebased table manager <see cref="MongoTable{T}"/>
-        /// </summary>
-        /// <typeparam name="T">Table key type</typeparam>
-        /// <returns>Typebased table manager</returns>
-        public MongoTable<T> Table<T>() where T : IMongoEntity, new()
-        {
-            return new MongoTable<T>(Database.GetCollection<T>(new T() { }.Table));
+            // Returning collection
+            return Collection<E>(typeof(E));
         }
 
     }

@@ -4,7 +4,7 @@ namespace MongoDB.Driver.Wrapper
 {
 
     /// <summary>
-    /// Represents mongo configuration <see cref="MongoContext"/>
+    /// Represents mongo configuration.
     /// </summary>
     public class MongoConfiguration
     {
@@ -23,7 +23,17 @@ namespace MongoDB.Driver.Wrapper
         /// <summary>
         /// Prevents transaction support if true
         /// </summary>
-        public bool DisableTransactions { get; set; }
+        public bool UseTransactions { get; set; }
+
+        /// <summary>
+        /// Use lower camel case (Dromedary case) for mongo entity properties
+        /// </summary>
+        public bool UseLowerCamelCaseProperties { get; set; }
+
+        /// <summary>
+        /// Enables simple terminal logging for posted requests
+        /// </summary>
+        public bool EnableCommandLog { get; set; }
 
     }
 

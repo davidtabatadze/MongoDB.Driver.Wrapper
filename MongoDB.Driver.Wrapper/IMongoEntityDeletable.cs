@@ -4,7 +4,7 @@ namespace MongoDB.Driver.Wrapper
 {
 
     /// <summary>
-    /// Represents basic description of mongo table deletable entity <see cref="MongoTableEntity{T}"/>
+    /// Represents basic description of mongo table deletable entity.
     /// </summary>
     public interface IMongoEntityDeletable
     {
