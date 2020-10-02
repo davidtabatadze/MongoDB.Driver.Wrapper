@@ -21,6 +21,7 @@ namespace MongoDB.Driver.Wrapper
     /// Represents entity of mongo table
     /// </summary>
     /// <typeparam name="T">Entity key type</typeparam>
+    [BsonIgnoreExtraElements(Inherited = true)]
     public class MongoEntity<T> : IMongoEntity<T>
     {
 
