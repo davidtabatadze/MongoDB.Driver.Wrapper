@@ -3,24 +3,24 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.0.0</Version>
+    <Version>5.0.1</Version>
     <Company>David Tabatadze</Company>
     <Product>David Tabatadze</Product>
     <Description>.net core MongoDB.Driver wrapper</Description>
-    <Copyright>Copyright (c) 2019 David Tabatadze</Copyright>
+    <Copyright>Copyright (c) 2020 David Tabatadze</Copyright>
     <PackageLicenseUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper</PackageProjectUrl>
     <RepositoryUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper</RepositoryUrl>
     <RepositoryType>C#</RepositoryType>
-    <PackageTags>.net core mongo mongodb driver wrapper david tabatadze optio optioai optio.ai</PackageTags>
+    <PackageTags>.net core mongo mongodb driver wrapper david tabatadze</PackageTags>
     <PackageReleaseNotes>Mongo Context
 Mongo Entity
 Mongo CRUD
 Mongo Transactions
 </PackageReleaseNotes>
     <NeutralLanguage>ka-GE</NeutralLanguage>
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <FileVersion>5.0.0.0</FileVersion>
+    <AssemblyVersion>5.0.1.0</AssemblyVersion>
+    <FileVersion>5.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
