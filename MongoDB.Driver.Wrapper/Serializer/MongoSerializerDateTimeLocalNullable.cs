@@ -3,7 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace MongoDB.Driver.Wrapper.Serializer
+namespace MongoDB.Driver.Wrapper
 {
 
     /// <summary>

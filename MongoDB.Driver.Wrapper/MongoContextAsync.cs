@@ -5,11 +5,10 @@ using Microsoft.Extensions.Options;
 namespace MongoDB.Driver.Wrapper
 {
 
-
     /// <summary>
-    /// Represents synchronous wrapper of IMongoDatabase.
+    /// Represents asynchronous wrapper of IMongoDatabase.
     /// </summary>
-    public partial class MongoContext : MongoContextBase, IMongoContext
+    public partial class MongoContextAsync : MongoContextBase, IMongoContextAsync
     {
 
         /// <summary>
@@ -17,7 +16,7 @@ namespace MongoDB.Driver.Wrapper
         /// </summary>
         /// <param name="configuration">Configuration <see cref="MongoConfiguration"/></param>
         /// <param name="mappings">Entity mappings: class type to mongo table connection</param>
-        public MongoContext(IOptions<MongoConfiguration> configuration, Dictionary<Type, string> mappings = null) : this(configuration.Value, mappings)
+        public MongoContextAsync(IOptions<MongoConfiguration> configuration, Dictionary<Type, string> mappings = null) : this(configuration.Value, mappings)
         {
         }
 
@@ -26,7 +25,7 @@ namespace MongoDB.Driver.Wrapper
         /// </summary>
         /// <param name="configuration">Configuration <see cref="MongoConfiguration"/></param>
         /// <param name="mappings">Entity mappings: class type to mongo table connection</param>
-        public MongoContext(MongoConfiguration configuration, Dictionary<Type, string> mappings = null) : base(configuration, mappings)
+        public MongoContextAsync(MongoConfiguration configuration, Dictionary<Type, string> mappings = null) : base(configuration, mappings)
         {
         }
 

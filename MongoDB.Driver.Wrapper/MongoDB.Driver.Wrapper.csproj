@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.0.1</Version>
+    <Version>6.0.9</Version>
     <Company>David Tabatadze</Company>
-    <Product>David Tabatadze</Product>
+    <Product>MongoDB.Driver.Wrapper</Product>
     <Description>.net core MongoDB.Driver wrapper</Description>
     <Copyright>Copyright (c) 2020 David Tabatadze</Copyright>
-    <PackageLicenseUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper</PackageProjectUrl>
     <RepositoryUrl>https://github.com/davidtabatadze/MongoDB.Driver.Wrapper</RepositoryUrl>
     <RepositoryType>C#</RepositoryType>
@@ -16,18 +16,19 @@
     <PackageReleaseNotes>Mongo Context
 Mongo Entity
 Mongo CRUD
-Mongo Transactions
+Mongo Sessions
 </PackageReleaseNotes>
     <NeutralLanguage>ka-GE</NeutralLanguage>
-    <AssemblyVersion>5.0.1.0</AssemblyVersion>
-    <FileVersion>5.0.1.0</FileVersion>
+    <AssemblyVersion>6.0.6.0</AssemblyVersion>
+    <FileVersion>6.0.6.0</FileVersion>
+    <Authors>David Tabatadze</Authors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoreKit.Extension" Version="2.0.5" />
-    <PackageReference Include="CoreKit.Sync" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
+    <PackageReference Include="CoreKit.Extension" Version="3.0.3" />
+    <PackageReference Include="CoreKit.Sync" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.5" />
   </ItemGroup>
 
 </Project>

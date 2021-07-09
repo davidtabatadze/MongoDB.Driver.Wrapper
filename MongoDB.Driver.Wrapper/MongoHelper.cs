@@ -15,7 +15,7 @@ namespace MongoDB.Driver.Wrapper
         /// </summary>
         /// <typeparam name="T">Type of validation object</typeparam>
         /// <param name="entity">Validation object</param>
-        public static void ValidateMongoEntity<T>()
+        internal static void ValidateMongoEntity<T>()
         {
             // Only long and string are acceptable
             if (
