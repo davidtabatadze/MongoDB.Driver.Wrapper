@@ -28,7 +28,7 @@ Mongo Sessions
     <PackageReference Include="CoreKit.Extension" Version="3.0.3" />
     <PackageReference Include="CoreKit.Sync" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.5" />
+    <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
   </ItemGroup>
 
 </Project>
